@@ -7,13 +7,14 @@ editor: visual
 ## Greeting a professor based on the time of day
 
 ```{r}
-# load the stringr package for name manipulation
+#| label: package-loading
+
 library(stringr)
 ```
 
-
 ```{r}
-
+#| label: time-manipulation
+ 
 # take a precise time and return a general time of day (morning, afternoon, evening, night)
 
 specific_to_general <- function(time){
@@ -30,8 +31,8 @@ specific_to_general <- function(time){
 
 ```
 
-
 ```{r}
+#| label: name-manipulation
 
 # take a name and return it in proper case
 
@@ -43,8 +44,8 @@ name_manipulation <- function(name){
 }
 ```
 
-
 ```{r}
+#| label: greeting
 
 # take a name and a time, and return a greeting
 
@@ -57,7 +58,9 @@ greet_professor <- function(name, time){
 # test the function
 greet_professor("nAtalie", 17)
 ```
+
 ```{r}
+#| label: greeting-multiple-professor
 
 # use a loop to greet a lot of professors
 
@@ -66,7 +69,10 @@ for (professor in professors){
   print(greet_professor(professor, 18))
 }
 ```
+
 ```{r}
+#| label: greeting-addition
+
 #Add  arithmetic operators in the code simply to meet objective 6 - weird greeting, right?
 
 greeting_plus <- function(name, time, number1, number2){
@@ -76,4 +82,3 @@ greeting_plus <- function(name, time, number1, number2){
 # test the function
 greeting_plus("nAtalie", 17, 3, 4)
 ```
-
