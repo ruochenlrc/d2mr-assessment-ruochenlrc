@@ -112,8 +112,8 @@ Below each learning objective is a list of general expectations for meeting that
     2.  Uses multiple operators in data transformation pipelines and/or inline R code
 
         -   [ ] Objective attempt
-        -   [ ] Unique objective attempt
-        -   [x] Objective met
+        -   [x] Unique objective attempt
+        -   [ ] Objective met
         -   Grader comments:
 
 7.  Parse and define functions and arguments
@@ -125,8 +125,8 @@ Below each learning objective is a list of general expectations for meeting that
     3.  Functions are well-documented with comments
 
         -   [ ] Objective attempt
-        -   [ ] Unique objective attempt
-        -   [x] Objective met
+        -   [x] Unique objective attempt
+        -   [ ] Objective met
         -   Grader comments:
 
 8.  Parse and write conditional statements and/or loops
@@ -136,8 +136,8 @@ Below each learning objective is a list of general expectations for meeting that
     2.  Uses multiple types of conditional/loop functions (e.g., `if_else()`, `case_when()`, `for`, `while`)
 
         -   [ ] Objective attempt
-        -   [ ] Unique objective attempt
-        -   [x] Objective met
+        -   [x] Unique objective attempt
+        -   [ ] Objective met
         -   Grader comments:
 
 ### Tidyverse
