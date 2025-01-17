@@ -21,7 +21,7 @@ Mini-project title: hello-world
 
 Submission date:01/17/2025
 
-Project GitHub subdirectory URL:
+Project GitHub subdirectory URL: <https://github.com/ruochenlrc/d2mr-assessment-ruochenlrc/tree/main/06_r-programming/01_hello-world>
 
 URL or instructions to access additional materials, if needed:
 
