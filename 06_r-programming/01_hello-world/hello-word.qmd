@@ -1,0 +1,79 @@
+---
+title: "hello-word"
+format: html
+editor: visual
+---
+
+## Greeting a professor based on the time of day
+
+```{r}
+# load the stringr package for name manipulation
+library(stringr)
+```
+
+
+```{r}
+
+# take a precise time and return a general time of day (morning, afternoon, evening, night)
+
+specific_to_general <- function(time){
+    if (time >= 6 && time < 12){ #if it's between 6 and 12
+      return("morning") #return morning
+    } else if (time >= 12 && time < 18){ #if it's between 12 and 18
+      return("afternoon") #return afternoon
+    } else if (time >= 18 && time < 24){ #if it's between 18 and 24
+      return("evening") #return evening
+    } else { #if it's between 0 and 6
+      return("night") #return night
+    }
+  }
+
+```
+
+
+```{r}
+
+# take a name and return it in proper case
+
+name_manipulation <- function(name){
+  name_lowercase <- str_to_lower(str_sub(name, 2)) #get the lowercase part of the name
+  name_uppercase <- str_to_upper(str_sub(name, 1, 1)) #get the uppercase part of the name
+  name_proper <- paste0(name_uppercase, name_lowercase) #combine the two parts
+  return(name_proper) #return the proper case name
+}
+```
+
+
+```{r}
+
+# take a name and a time, and return a greeting
+
+greet_professor <- function(name, time){
+  general_time <- specific_to_general(time) #get the general time
+  name_proper <- name_manipulation(name) #get the proper case name
+  paste0("Good ", general_time, ", Professor ", name_proper, "!")
+}
+
+# test the function
+greet_professor("nAtalie", 17)
+```
+```{r}
+
+# use a loop to greet a lot of professors
+
+professors <- c("nAtalie", "mIchael", "sArAh", "jOhn", "eMily", "dAniel", "rAchel", "jAmes", "lAuren", "bRian")
+for (professor in professors){
+  print(greet_professor(professor, 18))
+}
+```
+```{r}
+#Add  arithmetic operators in the code simply to meet objective 6 - weird greeting, right?
+
+greeting_plus <- function(name, time, number1, number2){
+  paste0(greet_professor(name, time), " You know what? The sum of ", number1, " and ", number2, " is ", number1+number2, "!") #return the greeting with elementary school level addition
+}
+
+# test the function
+greeting_plus("nAtalie", 17, 3, 4)
+```
+

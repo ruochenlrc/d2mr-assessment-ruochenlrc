@@ -36,7 +36,7 @@ If the joke is that programmers think in code, what does that mental code look l
 # result pasted into terminal
 # *not* a function
 
-eggs <- T # Whether there were eggs in the store -- change this to F or T to see how the paste0 function's return changes
+eggs <- F # Whether there were eggs in the store -- change this to F or T to see how the paste0 function's return changes
 
 n.milk <- ifelse(eggs == TRUE, yes = 6, no = 1)
 
@@ -105,8 +105,8 @@ If we want to add this clarification here, the plain English version of the requ
 
 # Before we make a function, we write some code that works with pre-defined arguments
 
-milk <- TRUE # Whether there was milk in the store
-eggs <- TRUE # Whether there were eggs in the store
+milk <- FALSE # Whether there was milk in the store
+eggs <- FALSE # Whether there were eggs in the store
 
 if (milk == TRUE && eggs == TRUE) { # If there’s milk AND eggs
   n.milk <- 6 # Get 6 cartons of milk
@@ -252,7 +252,7 @@ This is the case that didn't behave as expected in attempt 2 because the program
 ```{r}
 #| label: attempt-3-case-1
 
-# Case 1: The store has milk and eggss
+# Case 1: The store has milk and eggs
 
 case3 <- shop3(TRUE, TRUE)
 
@@ -277,6 +277,22 @@ As an exercise, revise the conditional (or start from scratch!) to bring home th
 
 # Write a function that does exactly the same thing as shop3, but with less redundancy
 
+shop4 <- function(milk, eggs) {
+  if (milk == TRUE) { # If there’s milk
+    n.milk <- 1 # Get 1 carton of milk
+  } else { # If no milk
+    n.milk <- 0 # Get no milk
+  } 
+  
+  if (eggs == TRUE) { # If there are eggs
+    n.eggs <- 6 # Get 1 carton of milk
+  } else { # If no eggs
+    n.eggs <- 0 # Get no eggs
+    }
+  paste0("I bought ", n.milk, " milk and ", n.eggs, " eggs.")
+}
+
+shop4(FALSE, FALSE)
 ```
 
 If you want, you can take it further. What if the partner asks for a carton of milk and a dozen eggs? What if they ask for a carton of milk and a dozen eggs, but only if the store has both? What if they ask for a carton of milk and a dozen eggs, but only if the store has both, and if the store has neither, they ask for a loaf of bread?
