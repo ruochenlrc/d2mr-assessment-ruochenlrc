@@ -70,15 +70,9 @@ for (professor in professors){
 }
 ```
 
-```{r}
-#| label: greeting-addition
+# Try inline code and add arithmetic operators in the greeting
 
-#Add  arithmetic operators in the code simply to meet objective 6 - weird greeting, right?
+-   simply to meet the requirement of objective 6
+-   weird greeting, huh?
 
-greeting_plus <- function(name, time, number1, number2){
-  paste0(greet_professor(name, time), " You know what? The sum of ", number1, " and ", number2, " is ", number1+number2, "!") #return the greeting with elementary school level addition
-}
-
-# test the function
-greeting_plus("nAtalie", 17, 3, 4)
-```
+Good `r specific_to_general(17)`, Professor `r name_manipulation("nAtalie")`! You know what? The sum of 3 and 4 is `r 3+4` and 3 minus 4 equals `r 3-4`!
