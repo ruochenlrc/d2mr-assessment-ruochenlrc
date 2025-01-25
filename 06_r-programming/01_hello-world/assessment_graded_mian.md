@@ -113,8 +113,8 @@ Below each learning objective is a list of general expectations for meeting that
 
         -   [ ] Objective attempt
         -   [x] Unique objective attempt
-        -   [ ] Objective met
-        -   Grader comments: The script does not appear to use any explicit logical operators (`&&`, `||`, `!`).
+        -   [x] Objective met
+        -   Grader comments: Grading corrected.
 
 7.  Parse and define functions and arguments
 
