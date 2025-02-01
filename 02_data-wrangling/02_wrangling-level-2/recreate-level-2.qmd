@@ -189,13 +189,6 @@ gm.wrangled <- gm.wrangled %>%
          ), # Generate the variable "development_status" based on the "gdp_per_capita" variable
          development_status = as.factor(development_status), # Change the variable type of "development_status" to factor
          development_status = fct_relevel(development_status, "High Income", "Middle Income", "Low Income")) # Relevel the levels of the "development_status" variable
-
-gm.wrangled.factor <- gm.wrangled%>%
-  mutate(continent = fct_collapse(continent,
-                                  Europe_America = c("European Region", "Americas Region"),  
-                                  Asia = "Asian Region",                  
-                                  Oceania = "Oceania Region",                
-                                  Africa = "African Region")) # Collapse the levels of the "continent" variable just to meet the requirements of objective 12
   
   
 ```
@@ -211,13 +204,16 @@ The chunk(s) in this category may include things like text manipulation, creatin
 
 # String and Numeric Transformations
 
-
+first_three_letters <- function(x) { # Define a function that takes the first three letters of a string (ignore space) and change it to upper case
+  str_to_upper(str_sub(str_replace_all(x, " ", ""), 1, 3))
+}
 gm.wrangled <- gm.wrangled%>% 
-  mutate(country_abbrev = str_to_upper((str_sub(str_replace_all(country, " ", ""), 1, 3))), # Generate the variable "country_abbrev" by taking the first three letters of the "country" variable
+  mutate(country_abbrev = first_three_letters(country), # Generate the variable "country_abbrev" by taking the first three letters of the "country" variable
          population_millions = str_c(round(population / 1000000, 2), " mil."), # Generate the variable "population_millions" by dividing "population" by 1,000,000 and adding " mil." to the end of the variable
          country_length = str_length(country), # Generate the variable "country_length" by counting the number of characters in the "country" variable
          is_rich = if_else(gdp_per_capita > 20000, TRUE, FALSE) # Generate the variable "is_rich” based on the "gdp_per_capita" variable
   )
+
         
 ```
 
@@ -268,7 +264,6 @@ gm.wrangled <- gm.wrangled %>%
 gm.wrangled <- gm.wrangled %>%
   arrange(continent, year, desc(life_expectancy)) # Arrange the dataset by "country", "year", and "life_expectancy"
 
-
 ```
 
 # Checkpoint: compare dataframes
@@ -313,10 +308,18 @@ Beyond random transforms, try creating an additional transformation pipeline tha
 
 ```{r}
 
-#| label: rename-me-to-something-sensible
+#| label: play-around-continent
 
-#gm.optional <- gm.wrangled
-  # your code here
+gm.optional <- gm.wrangled %>%
+  mutate(continent_collapse = fct_collapse(continent,
+                                  Europe_America = c("European Region", "Americas Region"),  
+                                  Asia = "Asian Region",                  
+                                  Oceania = "Oceania Region",                
+                                  Africa = "African Region")) # Collapse the levels of the "continent" variable (to meet the requirements of objective 12)
+
+gm.optional <- gm.optional%>%
+  mutate(continent_abbbrev = first_three_letters(continent)) # Generate the variable "continent_abbbrev" by taking the first three letters of the "continent" variable (to meet the requirements of objective 7)
+  
 
 ```
 

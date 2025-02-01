@@ -87,7 +87,7 @@ Below each learning objective is a list of general expectations for meeting that
     2.  Relies on document revisions rather than manually created new versions
 
         -   [ ] Objective attempt
-        -   [ ] Unique objective attempt
+        -   [x] Unique objective attempt
         -   [ ] Objective met
         -   Grader comments:
 
@@ -110,7 +110,7 @@ Below each learning objective is a list of general expectations for meeting that
 
     2.  Uses multiple operators in data transformation pipelines and/or inline R code
 
-        -   [ ] Objective attempt
+        -   [x] Objective attempt
         -   [ ] Unique objective attempt
         -   [ ] Objective met
         -   Grader comments:
@@ -123,7 +123,7 @@ Below each learning objective is a list of general expectations for meeting that
 
     3.  Functions are well-documented with comments
 
-        -   [ ] Objective attempt
+        -   [x] Objective attempt
         -   [ ] Unique objective attempt
         -   [ ] Objective met
         -   Grader comments:
@@ -134,7 +134,7 @@ Below each learning objective is a list of general expectations for meeting that
 
     2.  Uses multiple types of conditional/loop functions (e.g., `if_else()`, `case_when()`, `for`, `while`)
 
-        -   [ ] Objective attempt
+        -   [x] Objective attempt
         -   [ ] Unique objective attempt
         -   [ ] Objective met
         -   Grader comments:
@@ -480,17 +480,17 @@ If you believe you have demonstrated any of the above skills sufficiently to cou
 
 <!-- Explanation of demonstrated unassessed objectives below this line -->
 
-1.  use frequent, informative comments in code and markdown: I have used a lot of comments to explain what I have done.
+1: use frequent, informative comments in code and markdown: I have used a lot of comments to explain what I have done.
 
-2.  find and understand documentation for R packages and functions: I have used the documentation for fct_relevel, fct_collapse, diff_data, and so on to understand how to use them. Besides documentation, I have also searched online, which guided me to use render_diff to make the results of diff_data more readable.
+2: find and understand documentation for R packages and functions: I have used the documentation for fct_relevel, fct_collapse, diff_data, and so on to understand how to use them. Besides documentation, I have also searched online, which guided me to use render_diff to make the results of diff_data more readable.
 
-3.  follow a debugging workflow with independent and collaborative strategies & parse and investigate error messages: I have met a lot of error messages while completing this project. Most of them are about the data types, objects that couldn't be found, missing ")", and so on. Sometimes I figured the problem out by reading the error message by myself, but sometimes I needed to google or ask AI to understand where the problem was if I couldn't make it by myself. When that didn't work either, I asked the TA for help. I know that I could also ask about it in our Slack channel, but I haven't had a chance to make it.
+3&4: follow a debugging workflow with independent and collaborative strategies & parse and investigate error messages: I have met a lot of error messages while completing this project. Most of them are about the data types, objects that couldn't be found, missing ")", and so on. Sometimes I figured the problem out by reading the error message by myself, but sometimes I needed to google or ask AI to understand where the problem was if I couldn't make it by myself. When that didn't work either, I asked the TA for help. I know that I could also ask about it in our Slack channel, but I haven't had a chance to make it.
 
-4.  Name and differentiate R data types: There are several R data types in the gm.wrangled file, including factor, character, double (numeric), integer, and logical. **Factors** represent categorical variables, while **characters** are strings containing zero or more characters. **Integers** and **doubles** store numerical values, with doubles allowing decimal points. **Logicals** hold T or F values, typically used to evaluate conditions in functions..
+12: Name and differentiate R data types: There are several R data types in the gm.wrangled file, including factor, character, double (numeric), integer, and logical. **Factors** represent categorical variables, while **characters** are strings containing zero or more characters. **Integers** and **doubles** store numerical values, with doubles allowing decimal points. **Logicals** hold T or F values, typically used to evaluate conditions in functions.
 
-5.  Name and differentiate R objects: There could be scalar, vector, and matrix. **Scalars** are any single values, which can be any data types. **Vectors** are lists of ordered scalar objects. For example, in this project, the "c(1992, 1997, 2002, 2007)" in the code "m.wrangled \<- gm.wrangled%\>% filter(year %in% c(1992, 1997, 2002, 2007))" is a vector. **Matrixs** are multiple ordered vector objects (we don't use matrix frequently).
+13: Name and differentiate R objects: There could be scalar, vector, and matrix. **Scalars** are any single values, which can be any data types. **Vectors** are lists of ordered scalar objects. For example, in this project, the "c(1992, 1997, 2002, 2007)" in the code "m.wrangled \<- gm.wrangled%\>% filter(year %in% c(1992, 1997, 2002, 2007))" is a vector. **Matrixs** are multiple ordered vector objects (we don't use matrix frequently).
 
-    There are also **dataframes** and **tibbles**. Dataframes are lists of euqal-length vectors, and tibbles are simplified data frames, which are mainly used for tidyverse. What is generated in this project is a tibble.
+There are also **dataframes** and **tibbles**. Dataframes are lists of euqal-length vectors, and tibbles are simplified data frames, which are mainly used for tidyverse. What is generated in this project is a tibble.
 
 <!-- Explanation of demonstrated unassessed objectives above this line -->
 
@@ -509,6 +509,8 @@ Optionally, you may provide a brief reflection on your experience with this proj
 Thoughtful reflections may earn engagement points.
 
 <!-- Reflection below this line -->
+
+I found it really helpful to outline a plan at the very beginning to achieve my goal. This has helped me organize my thoughts and guided me through the entire coding process. Although there were some differences between my initial ideas and the final code, the plan still played a crucial role in keeping me on the right track!
 
 <!-- Do not edit below this line. -->
 
