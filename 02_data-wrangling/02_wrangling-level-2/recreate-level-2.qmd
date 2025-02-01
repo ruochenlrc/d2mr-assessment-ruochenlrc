@@ -21,6 +21,9 @@ library(tidyverse)
 library(gapminder)
 library(daff) # for diff_data()
 
+if (!require("daff")) install.packages("daff")
+require("daff")
+
 set.seed(5678)
 ```
 
@@ -51,6 +54,10 @@ Start by saving the `gapminder` dataset to a new tbl called `gm.wrangled`. You w
 #| label: load-starting-data
 
 # create gm.wrangled
+gm.wrangled <- gapminder
+
+# View in console
+gm.wrangled
 
 
 ```
@@ -62,7 +69,7 @@ Before you start making changes to the `gm.wrangled` dataset, identify the diffe
 #| label: compare-datasets
 
 # Compare datasets using all.equal(), diff_data(), or another method of your choice
-
+diff_data(gm.wrangled, gm.wrangled.goal)
 
 ```
 
@@ -80,11 +87,23 @@ There are actually a few places where the goal dataset isn't ideal. You may want
 
 Create a plan to address the differences between the `gm.wrangled` and `gm.wrangled.goal` datasets. What changes do you need to make? What functions will you use to make these changes?
 
-  1. List
-  2. your
-  3. steps
-  4. here
-  5. etc...
+  
+  A. Filter the dataset to only keep the data of the year 1992, 1997, 2002, 2007 only (filter())
+  B. Generate and transform variables
+  1. Change the variable name "pop", "gdpPercap", and "lifeExp" to "population", "gdp_per_capita", and "life_expectancy"
+  2. Generate the variable "country_abbrev" by taking the first three letters of the "country" variable (str_to_upper(); str_sub())
+  3. Add the word "Region" to the end of the "continent" variable (str_c())
+  4. Generate the variable "population_millions" by dividing "population" by 1,000,000  and adding " mil." to the end of the variable (str_c())
+  5. Generate the variable "development_status" and "is.rich" based on the "gdp_per_capita" variable (case_when())
+  6. Generate the variable "country_length" by counting the number of characters in the "country" variable (str_length())
+  7. Generate the variable "econimic_score" by multipying "gdp_per_capita" by "life_expectancy" and then dividing by 10
+  8. Generate the variable "continent_avg_life_exp" by calculating the average "life_expectancy" by "continent" (group_by(); mutate())
+  C. Deal with the columns and life_expectancy and population
+  1. Generate the variable "relative_life_expectancy" by calculating the value of "life_expectancy" divided by "continent_avg_life_exp". (group_by())
+  2. Generate the variable "population_rank_in_continent" by ranking the "population" variable within each "continent" (group_by())
+  2. Generate the variable "is_populous" based on the "population" variable (if_else())
+  D. Reorder the columns and rows to match the goal dataset (select(); arrange())
+  
   
 ### Suggested functions
 
@@ -123,6 +142,24 @@ The chunk(s) in this category may include things like selecting and renaming col
 
 # Data Selection and Initial Manipulation
 
+#change the data types in gm.wrangled to match the data types in gm.wrangled.goal
+gm.wrangled <- gm.wrangled%>%
+  drop_na()%>% # Drop the missing values (although there is no need to do so -- just to meet the requirements of objective 10!)
+  mutate(country = as.character(country),
+         year = as.integer(year),
+         pop = as.integer(pop),
+         gdpPercap = as.double(gdpPercap),
+         lifeExp = as.double(lifeExp))
+
+gm.wrangled <- gm.wrangled%>%
+  filter(year %in% c(1992, 1997, 2002, 2007))
+
+#rename the variables to match the variable names in gm.wrangled.goal
+gm.wrangled <- gm.wrangled%>%
+  rename(population = pop, # Change the variable name "pop" to "population"
+         gdp_per_capita = gdpPercap, # Change the variable name "gdpPercap" to "gdp_per_capita"
+         life_expectancy = lifeExp) # Change the variable name "lifeExp" to "life_expectancy"
+
 ```
 
 
@@ -136,6 +173,30 @@ The chunk(s) in this category may include things like releveling factor variable
 
 # Factor Manipulation
 
+gm.wrangled <- gm.wrangled %>%
+  mutate(continent = recode_factor(continent, # Change the variable type of "continent" to factor
+                                   "Asia" = "Asian Region",
+                                   "Europe" = "European Region",
+                                   "Africa" = "African Region",
+                                   "Americas" = "Americas Region",
+                                   "Oceania" = "Oceania Region")) # Recode the levels of the "continent" variable
+
+gm.wrangled <- gm.wrangled %>%
+         mutate(development_status = case_when(
+           gdp_per_capita > 20000 ~ "High Income",
+           gdp_per_capita < 20000 & gdp_per_capita >5000 ~ "Middle Income",
+           gdp_per_capita < 5000 ~ "Low Income"
+         ), # Generate the variable "development_status" based on the "gdp_per_capita" variable
+         development_status = as.factor(development_status), # Change the variable type of "development_status" to factor
+         development_status = fct_relevel(development_status, "High Income", "Middle Income", "Low Income")) # Relevel the levels of the "development_status" variable
+
+gm.wrangled.factor <- gm.wrangled%>%
+  mutate(continent = fct_collapse(continent,
+                                  Europe_America = c("European Region", "Americas Region"),  
+                                  Asia = "Asian Region",                  
+                                  Oceania = "Oceania Region",                
+                                  Africa = "African Region")) # Collapse the levels of the "continent" variable just to meet the requirements of objective 12
+  
   
 ```
 
@@ -151,7 +212,13 @@ The chunk(s) in this category may include things like text manipulation, creatin
 # String and Numeric Transformations
 
 
-
+gm.wrangled <- gm.wrangled%>% 
+  mutate(country_abbrev = str_to_upper((str_sub(str_replace_all(country, " ", ""), 1, 3))), # Generate the variable "country_abbrev" by taking the first three letters of the "country" variable
+         population_millions = str_c(round(population / 1000000, 2), " mil."), # Generate the variable "population_millions" by dividing "population" by 1,000,000 and adding " mil." to the end of the variable
+         country_length = str_length(country), # Generate the variable "country_length" by counting the number of characters in the "country" variable
+         is_rich = if_else(gdp_per_capita > 20000, TRUE, FALSE) # Generate the variable "is_rich” based on the "gdp_per_capita" variable
+  )
+        
 ```
 
 ## Complex Column Operations
@@ -163,6 +230,24 @@ The chunk(s) in this category may include things like generating new columns bas
 #| label: complex-operations
 
 # Complex Column Operations
+
+# Generate a new column based on multiple existing columns
+gm.wrangled$economic_score = gm.wrangled$gdp_per_capita*gm.wrangled$life_expectancy/10 # Generate the variable "econimic_score" by multipying "gdp_per_capita" by "life_expectancy" and then dividing by 10
+
+#life expectancy [I tried to understand why there are several average life expectancy values for the same continent, but I couldn't find a reasonable explanation. Thus, I gemerate one continent_avg_life_exp for each continent, and use them to calculate relative_life_expectancy.]
+gm.wrangled <- gm.wrangled%>%
+  group_by(continent)%>%
+  mutate(continent_avg_life_exp = mean(life_expectancy))%>% # Generate the variable "continent_avg_life_exp" by calculating the average "life_expectancy" by "continent"
+  ungroup()%>%
+  mutate(relative_life_expectancy = life_expectancy/continent_avg_life_exp) # Generate the variable "relative_life_expectancy" by calculating the value of "life_expectancy" divided by "continent_avg_life_exp"
+
+#population rank in continent [I am confused with how the original variables were defined, which seems not to be based on the population size and doesn't make sense to me. Thus I've decided to generate my own variables.]
+gm.wrangled <- gm.wrangled%>%
+  group_by(continent, year)%>%
+         mutate(population_rank_in_continent =  rank(desc(population)), # Generate the variable "population_rank_in_continent" by ranking the "population" variable within each "continent"
+         is_populous = if_else(population > 100000000, TRUE, FALSE) # Generate the variable "is_populous" based on the "population" variable
+  )
+
 
 ```
 
@@ -176,6 +261,14 @@ The chunk(s) in this category may include things like final column reordering, s
 
 # Final Touches
 
+gm.wrangled <- gm.wrangled %>%
+  select(country, country_abbrev, continent, year, population, population_millions,  
+         gdp_per_capita, life_expectancy, development_status, country_length, economic_score, continent_avg_life_exp, relative_life_expectancy, population_rank_in_continent, is_rich, is_populous) # Select the columns in the order of the goal dataset 
+
+gm.wrangled <- gm.wrangled %>%
+  arrange(continent, year, desc(life_expectancy)) # Arrange the dataset by "country", "year", and "life_expectancy"
+
+
 ```
 
 # Checkpoint: compare dataframes
@@ -188,6 +281,9 @@ Check whether your `gm.wrangled` dataframe is identical to the goal dataframe. L
 
 # Compare dataframes again
 
+diff <- diff_data(gm.wrangled.goal, gm.wrangled)
+render_diff(diff)
+
 ```
 
 **QUESTION:** What differences remain between your `gm.wrangled` and `gm.wrangled.goal` datasets?
@@ -196,7 +292,9 @@ Check whether your `gm.wrangled` dataframe is identical to the goal dataframe. L
   2. Are there any differences that the `all.equal()` or `diff_data()` functions identified that you don't think are significant? What are they and what do they mean? Why do you believe they are non-essential?
   
 <!-- Answer below -->
-
+1. The values in the columns "continent_avg_life_exp", "relative_life_expectancy", "population_rank_in_continent", and "is populous" are different from the goal dataset. I didn't understand wht there are several average life expectancy values for the same continent. This is also why my values in "relative_life_expectancy" are also different from the goal ones. 
+  I also didn't get how the values in "population_rank_in_continent" and "is_populous" were calculated. It seems that the they are not calculated based on the population size, but I haven't figured out the logic behind them.
+2. There are no differences that the `diff_data()` functions identified that I don't think are significant.
 
 
 # OPTIONAL: Unguided cleaning and transformation
@@ -231,6 +329,7 @@ If you would like to export your dataframe(s) to a .csv file, you can use the `w
 
 # Write gm.wrangled to a .csv file
 
+write.csv(gm.wrangled, "gm_wrangled.csv", row.names = FALSE)
 
 # Write gm.optional to a .csv file
 
